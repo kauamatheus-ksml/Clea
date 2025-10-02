@@ -253,13 +253,13 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav">
-            <a href="/" class="logo">Clea</a>
+            <a href="<?= url('/') ?>" class="logo">Clea</a>
             <ul class="nav-links">
-                <li><a href="/">Início</a></li>
-                <li><a href="/vendors">Fornecedores</a></li>
-                <li><a href="/about">Sobre</a></li>
-                <li><a href="/contact">Contato</a></li>
-                <li><a href="/login">Entrar</a></li>
+                <li><a href="<?= url('/') ?>">Início</a></li>
+                <li><a href="<?= url('vendors') ?>">Fornecedores</a></li>
+                <li><a href="<?= url('about') ?>">Sobre</a></li>
+                <li><a href="<?= url('contact') ?>">Contato</a></li>
+                <li><a href="<?= url('login.php') ?>">Entrar</a></li>
             </ul>
         </nav>
     </header>
@@ -313,7 +313,7 @@
         <?php if (!empty($data['vendors'])): ?>
             <div class="vendors-grid">
                 <?php foreach ($data['vendors'] as $vendor): ?>
-                    <a href="/vendor-detail?id=<?= $vendor['id'] ?>" class="vendor-card">
+                    <a href="<?= url('vendor-detail?id=' . $vendor['id']) ?>" class="vendor-card">
                         <div class="vendor-image">
                             <?php
                             $icons = [
@@ -341,7 +341,7 @@
         <?php else: ?>
             <div class="no-results">
                 <p>Nenhum fornecedor encontrado com os filtros selecionados.</p>
-                <p><a href="/vendors" class="btn btn-primary" style="margin-top: 1rem;">Ver todos</a></p>
+                <p><a href="<?= url('vendors') ?>" class="btn btn-primary" style="margin-top: 1rem;">Ver todos</a></p>
             </div>
         <?php endif; ?>
     </div>

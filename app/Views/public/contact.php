@@ -178,7 +178,7 @@
 <body>
     <header class="header">
         <nav class="nav">
-            <a href="/" class="logo">Clea</a>
+            <a href="<?= url('/') ?>" class="logo">Clea</a>
         </nav>
     </header>
 
@@ -202,7 +202,7 @@
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/contact" class="contact-form">
+        <form method="POST" action="<?= url('contact') ?>" class="contact-form">
             <div class="form-group">
                 <label for="name">Nome Completo *</label>
                 <input type="text" id="name" name="name" required>

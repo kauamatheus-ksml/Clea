@@ -185,12 +185,12 @@
 <body>
     <header class="header">
         <nav class="nav">
-            <a href="/" class="logo">Clea</a>
+            <a href="<?= url('/') ?>" class="logo">Clea</a>
         </nav>
     </header>
 
     <div class="container">
-        <a href="/vendors" class="back-link">← Voltar para fornecedores</a>
+        <a href="<?= url('vendors') ?>" class="back-link">← Voltar para fornecedores</a>
 
         <div class="vendor-header">
             <div style="text-align: center;">
@@ -229,7 +229,7 @@
         <div class="cta-box">
             <h2>Interessado neste fornecedor?</h2>
             <p>Crie sua conta na Clea para entrar em contato e contratar este fornecedor.</p>
-            <a href="/register" class="btn">Criar Conta Gratuita</a>
+            <a href="<?= url('register') ?>" class="btn">Criar Conta Gratuita</a>
         </div>
     </div>
 </body>

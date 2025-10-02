@@ -407,16 +407,16 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav">
-            <a href="/" class="logo">Clea</a>
+            <a href="<?= url('/') ?>" class="logo">Clea</a>
             <ul class="nav-links">
-                <li><a href="/">Início</a></li>
-                <li><a href="/vendors">Fornecedores</a></li>
-                <li><a href="/about">Sobre</a></li>
-                <li><a href="/contact">Contato</a></li>
+                <li><a href="<?= url('/') ?>">Início</a></li>
+                <li><a href="<?= url('vendors') ?>">Fornecedores</a></li>
+                <li><a href="<?= url('about') ?>">Sobre</a></li>
+                <li><a href="<?= url('contact') ?>">Contato</a></li>
             </ul>
             <div>
-                <a href="/login" class="btn btn-outline">Entrar</a>
-                <a href="/register" class="btn btn-primary">Criar Conta</a>
+                <a href="<?= url('login.php') ?>" class="btn btn-outline">Entrar</a>
+                <a href="<?= url('register') ?>" class="btn btn-primary">Criar Conta</a>
             </div>
         </nav>
     </header>
@@ -426,8 +426,8 @@
         <h1>Seu Casamento dos Sonhos Começa Aqui</h1>
         <p>Planejamento elegante e personalizado com os melhores fornecedores curados especialmente para você.</p>
         <div class="hero-buttons">
-            <a href="/register" class="btn btn-white">Comece Agora</a>
-            <a href="/vendors" class="btn btn-outline">Explorar Fornecedores</a>
+            <a href="<?= url('register') ?>" class="btn btn-white">Comece Agora</a>
+            <a href="<?= url('vendors') ?>" class="btn btn-outline">Explorar Fornecedores</a>
         </div>
     </section>
 
@@ -526,7 +526,7 @@
         </div>
 
         <div style="text-align: center;">
-            <a href="/vendors" class="btn btn-primary">Ver Todos os Fornecedores</a>
+            <a href="<?= url('vendors') ?>" class="btn btn-primary">Ver Todos os Fornecedores</a>
         </div>
     </section>
 
@@ -534,7 +534,7 @@
     <section class="cta">
         <h2>Pronto para começar?</h2>
         <p>Crie sua conta gratuitamente e comece a planejar o casamento dos seus sonhos hoje mesmo.</p>
-        <a href="/register" class="btn btn-white">Criar Conta Gratuita</a>
+        <a href="<?= url('register') ?>" class="btn btn-white">Criar Conta Gratuita</a>
     </section>
 
     <!-- Footer -->
@@ -546,15 +546,15 @@
             </div>
             <div>
                 <h4>Links Rápidos</h4>
-                <a href="/">Início</a>
-                <a href="/vendors">Fornecedores</a>
-                <a href="/about">Sobre</a>
-                <a href="/contact">Contato</a>
+                <a href="<?= url('/') ?>">Início</a>
+                <a href="<?= url('vendors') ?>">Fornecedores</a>
+                <a href="<?= url('about') ?>">Sobre</a>
+                <a href="<?= url('contact') ?>">Contato</a>
             </div>
             <div>
                 <h4>Para Você</h4>
-                <a href="/register">Criar Conta</a>
-                <a href="/login">Entrar</a>
+                <a href="<?= url('register') ?>">Criar Conta</a>
+                <a href="<?= url('login.php') ?>">Entrar</a>
                 <a href="/register?type=vendor">Seja um Fornecedor</a>
             </div>
             <div>

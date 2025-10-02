@@ -209,7 +209,7 @@
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/register" id="registerForm">
+        <form method="POST" action="<?= url('register') ?>" id="registerForm">
             <div class="role-selector">
                 <div class="role-option">
                     <input type="radio" name="role" value="client" id="role-client" checked>
@@ -274,7 +274,7 @@
         </form>
 
         <div class="login-link">
-            Já tem uma conta? <a href="/login">Fazer login</a>
+            Já tem uma conta? <a href="<?= url('login.php') ?>">Fazer login</a>
         </div>
     </div>
 

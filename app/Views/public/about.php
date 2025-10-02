@@ -148,7 +148,7 @@
 <body>
     <header class="header">
         <nav class="nav">
-            <a href="/" class="logo">Clea</a>
+            <a href="<?= url('/') ?>" class="logo">Clea</a>
         </nav>
     </header>
 
@@ -208,7 +208,7 @@
         <div class="cta-box">
             <h2>Pronto para começar?</h2>
             <p>Junte-se a centenas de casais que já estão planejando o casamento dos sonhos com a Clea.</p>
-            <a href="/register" class="btn">Criar Conta Gratuita</a>
+            <a href="<?= url('register') ?>" class="btn">Criar Conta Gratuita</a>
         </div>
     </div>
 </body>
