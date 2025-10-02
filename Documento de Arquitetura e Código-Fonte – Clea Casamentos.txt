@@ -1,0 +1,525 @@
+Este guia é um projeto PHP moderno, utilizando o Composer para autoloading (o padrão da indústria), um arquivo `.env` para segurança das credenciais e uma arquitetura MVC (Model-View-Controller) clara. Siga a criação de cada arquivo exatamente como descrito.
+
+
+#### **Introdução à Arquitetura**
+
+Este projeto utiliza:
+
+  * **Composer:** Para gerenciar dependências e, mais importante, para o autoloading de classes (padrão PSR-4). Isso elimina a necessidade de múltiplos `require_once`.
+  * **Variáveis de Ambiente (`.env`):** Para armazenar informações sensíveis (como senhas de banco de dados) fora do código-fonte, aumentando a segurança.
+  * **MVC (Model-View-Controller):** Para separar a lógica de negócio (Model), da apresentação (View) e do controle de fluxo (Controller).
+  * **Front Controller:** Todas as requisições passam por `public/index.php`, centralizando o ponto de entrada da aplicação.
+
+-----
+
+### **Estrutura de Diretórios Raiz**
+
+```plaintext
+clea_casamentos/
+│
+├── app/
+├── config/
+├── public/
+├── vendor/               <-- Criado pelo Composer
+├── .env
+├── .env.example
+├── .gitignore
+└── composer.json
+```
+
+-----
+
+### **Arquivos na Raiz do Projeto**
+
+**Caminho:** `/composer.json`
+**Objetivo:** Define as dependências do projeto e configura o autoloader PSR-4, que carrega as classes automaticamente sem a necessidade de `require`.
+**Código:**
+
+```json
+{
+    "name": "clea/casamentos",
+    "description": "Plataforma de gerenciamento de casamentos minimalistas.",
+    "type": "project",
+    "require": {
+        "php": "^8.1",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
+```
+
+**Caminho:** `/.env.example`
+**Objetivo:** Um arquivo de exemplo que mostra quais variáveis de ambiente são necessárias. Um novo desenvolvedor copiaria este arquivo para `.env` e preencheria com suas próprias credenciais.
+**Código:**
+
+```env
+# Configuração do Banco de Dados
+DB_HOST=seu_host_remoto
+DB_NAME=seu_nome_do_banco
+DB_USER=seu_usuario_do_banco
+DB_PASS=sua_senha_do_banco
+
+# Configuração da Aplicação
+APP_URL=http://localhost
+APP_ENV=development
+```
+
+**Caminho:** `/.env`
+**Objetivo:** Armazena as credenciais e configurações locais/de produção. **Este arquivo NUNCA deve ser enviado para o Git.**
+**Código:**
+
+```env
+# Configuração do Banco de Dados
+DB_HOST=srv406.hstgr.io
+DB_NAME=u383946504_cleacasamentos
+DB_USER=u383946504_cleacasamentos
+DB_PASS=SUA_SENHA_SEGURA_AQUI
+
+# Configuração da Aplicação
+APP_URL=https://www.cleacasamentos.com.br
+APP_ENV=production
+```
+
+**Caminho:** `/.gitignore`
+**Objetivo:** Informa ao Git quais arquivos e pastas devem ser ignorados e não enviados para o repositório.
+**Código:**
+
+```
+/vendor/
+/.env
+```
+
+-----
+
+### **Diretório `config`**
+
+**Caminho:** `/config/database.php`
+**Objetivo:** Retorna um array de configuração para a conexão com o banco de dados, lendo as informações do arquivo `.env`.
+**Código:**
+
+```php
+<?php
+
+return [
+    'host' => $_ENV['DB_HOST'] ?? 'localhost',
+    'name' => $_ENV['DB_NAME'] ?? '',
+    'user' => $_ENV['DB_USER'] ?? 'root',
+    'pass' => $_ENV['DB_PASS'] ?? '',
+    'charset' => 'utf8mb4'
+];
+```
+
+-----
+
+### **Diretório `public`**
+
+**Caminho:** `/public/.htaccess`
+**Objetivo:** Redireciona todas as requisições que não são para arquivos físicos (como CSS ou imagens) para o `index.php` (Front Controller).
+**Código:**
+
+```apacheconf
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+```
+
+**Caminho:** `/public/index.php`
+**Objetivo:** Ponto de entrada único da aplicação. Carrega o Composer, as variáveis de ambiente, as rotas e inicia o roteador para lidar com a requisição.
+**Código:**
+
+```php
+<?php
+
+// Ponto de entrada da aplicação (Front Controller)
+
+// 1. Carregar o Autoloader do Composer
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+// 2. Carregar as Variáveis de Ambiente do arquivo .env
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
+// 3. Iniciar o Roteador
+$router = new App\Core\Router();
+
+// 4. Carregar as definições de rotas
+require_once dirname(__DIR__) . '/app/routes.php';
+
+// 5. Despachar a rota correspondente à URL atual
+$url = $_GET['url'] ?? '/';
+$router->dispatch($url);
+```
+
+-----
+
+### **Diretório `app`**
+
+#### **Subdiretório `/app/Core`**
+
+**Caminho:** `/app/Core/Router.php`
+**Objetivo:** Classe central que mapeia as URLs para os métodos dos Controllers.
+**Código:**
+
+```php
+<?php
+
+namespace App\Core;
+
+class Router
+{
+    protected array $routes = [];
+
+    public function add(string $method, string $uri, array $controller)
+    {
+        $this->routes[] = [
+            'uri' => $uri,
+            'controller' => $controller,
+            'method' => strtoupper($method),
+        ];
+    }
+
+    public function get(string $uri, array $controller)
+    {
+        $this->add('GET', $uri, $controller);
+    }
+
+    public function post(string $uri, array $controller)
+    {
+        $this->add('POST', $uri, $controller);
+    }
+
+    public function dispatch(string $uri)
+    {
+        foreach ($this->routes as $route) {
+            if ($route['uri'] === $uri && $route['method'] === $_SERVER['REQUEST_METHOD']) {
+                [$class, $method] = $route['controller'];
+
+                if (class_exists($class)) {
+                    $controller = new $class();
+                    if (method_exists($controller, $method)) {
+                        $controller->$method();
+                        return;
+                    }
+                }
+            }
+        }
+
+        $this->abort(404);
+    }
+
+    protected function abort(int $code = 404)
+    {
+        http_response_code($code);
+        require_once dirname(__DIR__) . "/Views/errors/{$code}.php";
+        die();
+    }
+}
+```
+
+**Caminho:** `/app/Core/Database.php`
+**Objetivo:** Gerencia a conexão com o banco de dados usando o padrão Singleton.
+**Código:**
+
+```php
+<?php
+
+namespace App\Core;
+
+use PDO;
+use PDOException;
+
+class Database
+{
+    private static ?self $instance = null;
+    public PDO $conn;
+
+    private function __construct()
+    {
+        $config = require dirname(__DIR__, 2) . '/config/database.php';
+        
+        $dsn = "mysql:host={$config['host']};dbname={$config['name']};charset={$config['charset']}";
+
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+
+        try {
+            $this->conn = new PDO($dsn, $config['user'], $config['pass'], $options);
+        } catch (PDOException $e) {
+            // Em produção, logar o erro e mostrar uma página amigável.
+            die("Erro de conexão com o banco de dados: " . $e->getMessage());
+        }
+    }
+
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+}
+```
+
+**Caminho:** `/app/Core/Controller.php`
+**Objetivo:** Controller base do qual todos os outros controllers herdarão. Contém métodos úteis, como o de renderizar uma View.
+**Código:**
+
+```php
+<?php
+
+namespace App\Core;
+
+abstract class Controller
+{
+    /**
+     * Renderiza um arquivo de view, passando dados para ele.
+     *
+     * @param string $view O caminho do arquivo de view (ex: 'public/home')
+     * @param array $data Dados a serem extraídos como variáveis na view
+     */
+    protected function view(string $view, array $data = [])
+    {
+        extract($data);
+        
+        require_once dirname(__DIR__) . "/Views/{$view}.php";
+    }
+}
+```
+
+#### **Subdiretório `/app/Controllers`**
+
+**Caminho:** `/app/Controllers/PublicController.php`
+**Objetivo:** Controla as páginas públicas do site, como a página inicial.
+**Código:**
+
+```php
+<?php
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+
+class PublicController extends Controller
+{
+    public function home()
+    {
+        $data = [
+            'pageTitle' => 'Bem-vindo à Clea Casamentos'
+        ];
+
+        $this->view('public/home', $data);
+    }
+}
+```
+
+**Caminho:** `/app/Controllers/AuthController.php`
+**Objetivo:** Controla o fluxo de autenticação: login, registro, logout.
+**Código:**
+
+```php
+<?php
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+
+class AuthController extends Controller
+{
+    public function showLoginForm()
+    {
+        $this->view('auth/login');
+    }
+
+    public function login()
+    {
+        // Lógica de processamento do formulário de login virá aqui
+        echo "Processando login...";
+    }
+    
+    public function logout()
+    {
+        // Lógica de logout virá aqui
+        echo "Processando logout...";
+    }
+}
+```
+
+#### **Subdiretório `/app/Models`**
+
+**Caminho:** `/app/Models/User.php`
+**Objetivo:** Modelo para interagir com a tabela `users` no banco de dados.
+**Código:**
+
+```php
+<?php
+
+namespace App\Models;
+
+use App\Core\Database;
+use PDO;
+
+class User
+{
+    protected PDO $db;
+
+    public function __construct()
+    {
+        $this->db = Database::getInstance()->conn;
+    }
+
+    public function findByEmail(string $email)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        return $stmt->fetch();
+    }
+}
+```
+
+#### **Subdiretório `/app/Views`**
+
+Crie todos os diretórios e arquivos abaixo dentro de `app/Views/`.
+
+**Caminho:** `/app/Views/layouts/main.php`
+**Objetivo:** O template principal do site, que inclui o header, footer e o conteúdo dinâmico.
+**Código:**
+
+```php
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $pageTitle ?? 'Clea Casamentos' ?></title>
+    </head>
+<body>
+
+    <?php require_once __DIR__ . '/../_partials/header.php'; ?>
+
+    <main>
+        <?= $content ?? '' ?>
+    </main>
+
+    <?php require_once __DIR__ . '/../_partials/footer.php'; ?>
+
+    </body>
+</html>
+```
+
+**Caminho:** `/app/Views/_partials/header.php`
+**Objetivo:** O cabeçalho do site, incluído em todas as páginas.
+**Código:**
+
+```php
+<header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/admin/dashboard">Painel</a>
+    </nav>
+</header>
+```
+
+**Caminho:** `/app/Views/_partials/footer.php`
+**Objetivo:** O rodapé do site, incluído em todas as páginas.
+**Código:**
+
+```php
+<footer>
+    <p>&copy; <?= date('Y') ?> Clea Casamentos. Todos os direitos reservados.</p>
+</footer>
+```
+
+**Caminho:** `/app/Views/public/home.php`
+**Objetivo:** O conteúdo específico da página inicial.
+**Código:**
+
+```php
+<?php 
+// Este arquivo não é um layout completo, apenas o conteúdo
+// Ele será renderizado dentro de um layout principal
+?>
+<h1><?= htmlspecialchars($pageTitle) ?></h1>
+<p>Redefinindo o mercado de casamentos com foco e eficiência.</p>
+```
+
+**Caminho:** `/app/Views/auth/login.php`
+**Objetivo:** O formulário de login.
+**Código:**
+
+```php
+<h2>Login</h2>
+<form action="/login" method="POST">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Entrar</button>
+</form>
+```
+
+**Caminho:** `/app/Views/errors/404.php`
+**Objetivo:** Página de erro para quando uma rota não é encontrada.
+**Código:**
+
+```php
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Não Encontrada</title>
+</head>
+<body>
+    <h1>Erro 404</h1>
+    <p>A página que você está procurando não foi encontrada.</p>
+    <a href="/">Voltar para a página inicial</a>
+</body>
+</html>
+```
+
+-----
+
+### **Arquivo de Rotas**
+
+**Caminho:** `/app/routes.php`
+**Objetivo:** Arquivo central para definir todas as rotas da aplicação.
+**Código:**
+
+```php
+<?php
+
+// As rotas são adicionadas à variável $router, que foi criada em /public/index.php
+
+// Rotas Públicas
+$router->get('/', [App\Controllers\PublicController::class, 'home']);
+
+// Rotas de Autenticação
+$router->get('/login', [App\Controllers\AuthController::class, 'showLoginForm']);
+$router->post('/login', [App\Controllers\AuthController::class, 'login']);
+$router->get('/logout', [App\Controllers\AuthController::class, 'logout']);
+
+// Adicione aqui as rotas para o painel do cliente, fornecedor e admin...
+```
+
+### **Instruções Finais para Execução**
+
+1.  **Instale as dependências:** Na raiz do projeto, execute o comando `composer install`. Isso criará a pasta `vendor` e o autoloader.
+2.  **Configure o `.env`:** Copie o `.env.example` para `.env` e preencha com suas credenciais de banco de dados.
+3.  **Servidor Web:** Configure seu servidor web (Apache/Nginx) para que a "Raiz do Documento" (DocumentRoot) aponte para a pasta `/public`. Isso é crucial para a segurança.
+4.  **Acesse:** Abra seu navegador na URL configurada. Você deverá ver a página inicial.

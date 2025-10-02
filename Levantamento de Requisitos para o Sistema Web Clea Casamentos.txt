@@ -1,0 +1,160 @@
+Versão: 1.0
+Data: 18 de Setembro de 2025
+
+1. Introdução
+1.1. Propósito
+O propósito deste documento é detalhar os requisitos funcionais e não-funcionais para o desenvolvimento da plataforma "Clea Casamentos". O sistema será uma aplicação web completa que servirá como um ecossistema digital para conectar noivos, fornecedores e a equipe de gestão da RSF Sonho de Noiva, com foco no nicho de casamentos minimalistas.
+
+1.2. Escopo do Projeto
+O projeto engloba o desenvolvimento de quatro interfaces principais:
+
+Portal Público (Site Institucional): Vitrine da marca, acessível a todos os visitantes.
+
+Painel do Cliente (Noivos): Área logada para gestão do casamento pelo casal.
+
+Painel do Fornecedor (Parceiro): Área logada para gestão de eventos e perfil pelo fornecedor.
+
+Painel Administrativo (Equipe Clea): Back-office para gestão completa do ecossistema.
+
+O escopo não inclui, nesta fase, o desenvolvimento de aplicativos móveis nativos (iOS/Android). O sistema deve ser, no entanto, totalmente responsivo.
+
+1.3. Personas e Público-Alvo
+Noivos (Ex: Marina e Frederico): Casais modernos, com idades entre 25-40 anos, que buscam experiências significativas e valorizam a qualidade sobre a quantidade. São digitalmente proficientes, mas se sentem sobrecarregados com o excesso de opções do mercado tradicional.
+
+Fornecedores (Ex: Casa Montenegro, Cerimonialista Norma): Empresas e profissionais de alta qualidade, curados pela equipe Clea, que se alinham à filosofia minimalista e buscam leads qualificados e um processo de trabalho organizado.
+
+Administradores (Ex: Clea e Ricardo): Gestores do negócio, que necessitam de ferramentas para operar o ecossistema com eficiência, desde a curadoria de fornecedores até a gestão financeira e de clientes (CRM).
+
+Visitante: Potencial cliente que chega ao site através de campanhas de marketing (Google Ads, Meta Ads) e busca entender a proposta de valor da empresa.
+
+2. Requisitos Funcionais (O que o sistema deve fazer)
+2.1. Módulo 1: Portal Público
+FR-1.1: O portal deve apresentar a filosofia da empresa, os serviços oferecidos (Trajes, Espaço, Curadoria) e casos de sucesso (Crônicas de Casamentos).
+
+FR-1.2: Deve haver uma galeria/portfólio visualmente atraente com uma amostra dos fornecedores e espaços.
+
+FR-1.3: Deve existir um formulário de contato e um link direto para o WhatsApp para capturar leads.
+
+FR-1.4: O portal deve ser otimizado para motores de busca (SEO) com base nas palavras-chave do negócio.
+
+2.2. Módulo 2: Gestão de Contas e Autenticação
+FR-2.1: Usuários (Noivos e Fornecedores) devem poder se cadastrar na plataforma. O cadastro de Fornecedores requer aprovação do Administrador.
+
+FR-2.2: Deve haver um sistema de login seguro (e-mail e senha) para todas as personas com acesso restrito.
+
+FR-2.3: Implementar funcionalidade de "Esqueci minha senha" com recuperação via e-mail.
+
+FR-2.4: Usuários devem poder visualizar e editar seus próprios perfis. Noivos editam dados pessoais e do evento; Fornecedores editam perfil público, fotos, pacotes e informações de contato.
+
+2.3. Módulo 3: Painel do Cliente (Noivos)
+FR-3.1 - Dashboard: Ao logar, o cliente deve ver um painel com um resumo do seu evento: data, contador regressivo, checklist de tarefas/etapas e notificações.
+
+FR-3.2 - Curadoria de Fornecedores: O cliente deve poder navegar pelo portfólio de parceiros curados, filtrar por categoria (fotografia, cerimonial, etc.) e visualizar perfis detalhados.
+
+FR-3.3 - Gestão de Contratações: O sistema deve permitir que o cliente contrate serviços diretamente pela plataforma, selecionando pacotes e combos pré-definidos.
+
+FR-3.4 - Contratos Digitais: Todos os contratos devem ser gerados automaticamente pela plataforma e permitir assinatura digital (integração com serviço de terceiros).
+
+FR-3.5 - Módulo Financeiro:
+
+FR-3.5.1: Visualização do valor total do evento, detalhado por serviço.
+
+FR-3.5.2: Geração de boletos bancários para pagamento do sinal (40%) e das parcelas recorrentes do saldo (integração com gateway de pagamento).
+
+FR-3.5.3: Histórico de todos os pagamentos realizados e status dos pagamentos pendentes.
+
+FR-3.6 - Chat Integrado: Um sistema de mensagens para comunicação centralizada com cada fornecedor contratado e com o consultor Clea. O histórico deve ser salvo permanentemente.
+
+FR-3.7 - Gestão de Convidados: Uma ferramenta para o cliente criar sua lista de convidados e, posteriormente, organizar o mapa de assentos da recepção.
+
+FR-3.8 - Notificações: O sistema deve enviar notificações automáticas por e-mail e na plataforma sobre: lembretes de pagamento, novas mensagens no chat e atualizações importantes do evento.
+
+2.4. Módulo 4: Painel do Fornecedor (Parceiro)
+FR-4.1 - Dashboard: Ao logar, o fornecedor deve ver uma lista de seus próximos eventos contratados e notificações pendentes.
+
+FR-4.2 - Jornada do Cliente Compartilhada: Para cada evento, o fornecedor deve ter acesso a um painel com os detalhes essenciais, data, local e a lista dos outros fornecedores envolvidos para facilitar o alinhamento.
+
+FR-4.3 - Módulo Financeiro:
+
+FR-4.3.1: Visão clara dos valores a receber por evento, com o detalhamento da comissão de 20% retida pela plataforma.
+
+FR-4.3.2: Cronograma de repasses (o sistema deve informar que o saldo será repassado no dia do evento).
+
+FR-4.3.3: Histórico de todos os pagamentos recebidos através da plataforma.
+
+FR-4.4 - Chat Integrado: Acesso ao chat para comunicação direta com os noivos e a equipe Clea para cada evento específico.
+
+2.5. Módulo 5: Painel Administrativo (Equipe Clea)
+FR-5.1 - Gestão de Clientes (CRM): Visão completa de todos os casais cadastrados, seu progresso no funil de vendas e o histórico de interações.
+
+FR-5.2 - Gestão de Fornecedores: Ferramenta para cadastrar, aprovar (processo de curadoria) e gerenciar o perfil de todos os parceiros. O admin deve poder ativar/desativar parceiros.
+
+FR-5.3 - Gestão Financeira Total:
+
+FR-5.3.1: Dashboard com visão geral das receitas, comissões retidas e pagamentos processados.
+
+FR-5.3.2: Ferramenta para gerenciar e autorizar os repasses finais aos fornecedores.
+
+FR-5.3.3: Capacidade de gerar relatórios financeiros detalhados.
+
+FR-5.4 - Gestão de Conteúdo (CMS): O admin deve poder editar textos e imagens do Portal Público sem a necessidade de um desenvolvedor.
+
+FR-5.5 - Supervisão de Contratos: Acesso a todos os contratos gerados na plataforma e seu status (pendente, assinado).
+
+FR-5.6 - Mediação de Chat: O admin deve ter a capacidade de visualizar e, se necessário, intervir nas conversas entre clientes e fornecedores.
+
+3. Requisitos Não-Funcionais (Como o sistema deve se comportar)
+RNF-1 - Desempenho: Todas as páginas devem carregar em menos de 3 segundos em uma conexão de banda larga padrão. O sistema deve suportar até 100 usuários simultâneos sem degradação de performance.
+
+RNF-2 - Segurança:
+
+RNF-2.1: Todo o tráfego deve ser criptografado com SSL (HTTPS).
+
+RNF-2.2: Senhas devem ser armazenadas usando algoritmos de hashing fortes (ex: bcrypt).
+
+RNF-2.3: O sistema deve ser protegido contra vulnerabilidades comuns (SQL Injection, XSS, CSRF).
+
+RNF-2.4: O acesso aos dados deve ser estritamente controlado por papéis (Noivos só veem seus dados, Fornecedores só veem seus eventos, etc.).
+
+RNF-3 - Usabilidade e Acessibilidade:
+
+RNF-3.1: A interface deve ser intuitiva, limpa e consistente com a identidade visual minimalista da marca.
+
+RNF-3.2: O sistema deve ser totalmente responsivo, garantindo uma boa experiência de uso em desktops, tablets e smartphones.
+
+RNF-4 - Confiabilidade: O sistema deve ter uma disponibilidade (uptime) de 99.5% ou superior. Backups regulares do banco de dados devem ser automatizados.
+
+RNF-5 - Conformidade Legal: O sistema deve estar em conformidade com a Lei Geral de Proteção de Dados (LGPD) do Brasil, incluindo políticas de privacidade claras e gestão de consentimento do usuário.
+
+4. Requisitos Técnicos
+RT-1 - Tecnologias Backend:
+
+Linguagem: PHP 8.1+
+
+Framework: Laravel 10+ (Recomendado para estrutura, segurança e ecossistema robusto).
+
+Banco de Dados: MySQL 8+ ou PostgreSQL 14+.
+
+RT-2 - Tecnologias Frontend:
+
+Estrutura: HTML5, CSS3 (com pré-processador SASS).
+
+JavaScript: Vanilla JS ou uma biblioteca leve como Alpine.js para interatividade. Não é necessário um framework pesado como React/Vue.
+
+RT-3 - Servidor e Hospedagem:
+
+Ambiente: Servidor Linux com Nginx ou Apache (LEMP/LAMP Stack).
+
+Hospedagem: Provedor em nuvem (AWS, DigitalOcean, etc.) com capacidade de escalonamento.
+
+RT-4 - Integrações de Terceiros (APIs):
+
+Gateway de Pagamento: Integração com um provedor brasileiro para emissão de boletos e processamento de pagamentos (Ex: PagSeguro, Mercado Pago, Stripe).
+
+Assinatura Digital: Integração com uma API para validade jurídica dos contratos (Ex: Clicksign, DocuSign).
+
+Serviço de E-mail Transacional: Para garantir a entrega de notificações (Ex: SendGrid, Amazon SES).
+
+(Opcional) Mensageria: Integração com API de WhatsApp para notificações (Ex: Twilio).
+
+RT-5 - Controle de Versão: Todo o código-fonte deve ser gerenciado usando Git e hospedado em uma plataforma como GitHub ou GitLab.
