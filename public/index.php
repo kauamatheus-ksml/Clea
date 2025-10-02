@@ -7,6 +7,9 @@ define('ROOT_PATH', dirname(__DIR__));
 // Carregar configurações
 require_once ROOT_PATH . '/config/config.php';
 
+// Carregar funções helper
+require_once ROOT_PATH . '/app/helpers.php';
+
 // Autoloader para as classes do projeto
 spl_autoload_register(function ($class) {
     $class = str_replace('App\\', '', $class);

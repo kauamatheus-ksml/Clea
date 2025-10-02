@@ -9,16 +9,18 @@ define('DB_NAME', 'u383946504_cleacasamentos');         // Ex: u123456789_clea_d
 // Configuração Base da Aplicação
 define('APP_NAME', 'Clea Casamentos');
 
-// Detectar ambiente e definir BASE_URL automaticamente
-$isLocalhost = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1']);
+// Detectar ambiente e definir BASE_URL e APP_URL automaticamente
+$isLocalhost = in_array($_SERVER['HTTP_HOST'] ?? 'localhost', ['localhost', '127.0.0.1', '::1']);
 if ($isLocalhost) {
     // Ambiente de desenvolvimento
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'];
     define('BASE_URL', $protocol . '://' . $host);
+    define('APP_URL', $protocol . '://' . $host);
 } else {
     // Ambiente de produção
-    define('BASE_URL', 'https://www.cleacasamentos.com.br');
+    define('BASE_URL', 'https://cleacasamentos.com.br');
+    define('APP_URL', 'https://cleacasamentos.com.br');
 }
 
 // Outras configurações (chaves de API, etc.)
