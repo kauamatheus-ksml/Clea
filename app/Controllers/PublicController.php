@@ -145,7 +145,7 @@ class PublicController
             // Criar usuário
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $this->db->prepare("
-                INSERT INTO users (name, email, password, role, is_active, created_at)
+                INSERT INTO users (name, email, password_hash, role, is_active, created_at)
                 VALUES (?, ?, ?, ?, 1, NOW())
             ");
 
