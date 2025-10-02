@@ -1,8 +1,8 @@
 # TODO - Projeto Clea Casamentos
 
-## 📊 Status Geral do Projeto: 90% Completo
+## 📊 Status Geral do Projeto: 95% Completo
 
-### ✅ Concluído (90%)
+### ✅ Concluído (95%)
 - [x] Arquitetura MVC implementada
 - [x] Sistema de autenticação e roles
 - [x] Database class com padrão Singleton
@@ -56,12 +56,14 @@
   - [x] `/vendor/messages` - Chat com clientes ✅
   - [x] `/vendor/profile` - Gestão de perfil público ✅
 
-### ❌ Pendente - Fase 3: Portal Público (15%)
-- [ ] Landing page institucional
-- [ ] Galeria/portfólio fornecedores
-- [ ] Sistema de registro público
-- [ ] Formulário de contato/leads
-- [ ] SEO optimization
+### ✅ Concluído - Fase 3: Portal Público (100%)
+- [x] Landing page institucional ✅
+- [x] Galeria/portfólio fornecedores ✅
+- [x] Sistema de registro público ✅
+- [x] Formulário de contato/leads ✅
+- [x] Página Sobre ✅
+- [x] Página de detalhes do fornecedor ✅
+- [ ] SEO optimization (pendente)
 
 ### ❌ Pendente - Fase 4: Funcionalidades Avançadas (5%)
 - [ ] Sistema de contratos digitais
@@ -72,18 +74,13 @@
 
 ## 🎯 Próximas Tarefas Prioritárias
 
-### Sprint Atual - Fase 2 (Painel Fornecedor):
-1. **[ALTA]** Implementar `/vendor/dashboard` - Dashboard fornecedor
-2. **[ALTA]** Implementar `/vendor/events` - Eventos contratados
-3. **[ALTA]** Implementar `/vendor/financial` - Gestão financeira
-4. **[MÉDIA]** Implementar `/vendor/messages` - Chat com clientes
-5. **[MÉDIA]** Implementar `/vendor/profile` - Gestão de perfil
-
-### Próxima Sprint - Fase 3:
-1. **[MÉDIA]** Portal público básico (landing page)
-2. **[MÉDIA]** Galeria/portfólio fornecedores
-3. **[BAIXA]** Sistema de registro público
-4. **[BAIXA]** Funcionalidades avançadas
+### Sprint Atual - Fase 4 (Funcionalidades Avançadas):
+1. **[ALTA]** Implementar sistema de contratos digitais
+2. **[ALTA]** Integrar gateway de pagamento
+3. **[MÉDIA]** Sistema de notificações
+4. **[MÉDIA]** Assinatura digital
+5. **[BAIXA]** Geração de relatórios
+6. **[BAIXA]** SEO optimization completo
 
 ## 📋 Critérios de Aceitação
 
@@ -97,10 +94,10 @@
 - **🎉 MVP 100% COMPLETO!** ✅
 
 ### Para Beta:
-- [ ] Portal público
+- [x] Portal público ✅
 - [ ] Sistema de contratos
 - [ ] Integração pagamentos
-- [ ] Chat entre usuários
+- [x] Chat entre usuários ✅
 
 ### Para Produção:
 - [ ] Todas as funcionalidades dos requisitos
@@ -122,5 +119,6 @@
 - [ ] Configurar CI/CD
 
 ---
-**Última atualização:** 29/09/2025 - **🎉 MVP 100% COMPLETO!** (Cliente + Fornecedor) ✅
-**Próxima revisão:** 06/10/2025
+**Última atualização:** 02/10/2025 - **🎉 PORTAL PÚBLICO 100% COMPLETO!** ✅
+**Próxima revisão:** 09/10/2025
+**Status:** Pronto para fase de funcionalidades avançadas (contratos digitais e pagamentos)
