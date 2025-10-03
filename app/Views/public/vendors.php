@@ -259,7 +259,7 @@
                 <li><a href="<?= url('vendors') ?>">Fornecedores</a></li>
                 <li><a href="<?= url('about') ?>">Sobre</a></li>
                 <li><a href="<?= url('contact') ?>">Contato</a></li>
-                <li><a href="<?= url('login.php') ?>">Entrar</a></li>
+                <li><a href="<?= url('login') ?>">Entrar</a></li>
             </ul>
         </nav>
     </header>
@@ -273,7 +273,7 @@
 
         <!-- Filters -->
         <div class="filters">
-            <form method="GET" action="/vendors" class="filter-form">
+            <form method="GET" action="<?= url('vendors') ?>" class="filter-form">
                 <div class="filter-group">
                     <label for="category">Categoria</label>
                     <select name="category" id="category">

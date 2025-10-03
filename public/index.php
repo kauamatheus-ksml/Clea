@@ -43,6 +43,11 @@ $router->post('/contact', [App\Controllers\PublicController::class, 'submitConta
 $router->get('/register', [App\Controllers\PublicController::class, 'register']);
 $router->post('/register', [App\Controllers\PublicController::class, 'submitRegister']);
 
+// === ROTAS DE AUTENTICAÇÃO ===
+$router->get('/login', [App\Controllers\AuthController::class, 'login']);
+$router->post('/authenticate', [App\Controllers\AuthController::class, 'authenticate']);
+$router->get('/logout', [App\Controllers\AuthController::class, 'logout']);
+
 // === ROTAS AUTENTICADAS ===
 
 // Rotas Admin (FR-5)

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(php:*)",
       "Bash(dir:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(del \"C:\\Users\\Kaua\\Documents\\Projetos\\Clea\\public\\fix.php\")",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

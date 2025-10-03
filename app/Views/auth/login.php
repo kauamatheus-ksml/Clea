@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -147,6 +144,7 @@ session_start();
             padding: 0 16px;
             color: var(--text-secondary);
             font-size: 14px;
+            position: relative;
         }
 
         .register-link {
@@ -225,7 +223,7 @@ session_start();
 </head>
 <body>
     <div class="back-home">
-        <a href="index.php">
+        <a href="<?= url('/') ?>">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path d="M19 12H5m7-7l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
             </svg>
@@ -239,20 +237,21 @@ session_start();
             <p>Área de acesso</p>
         </div>
 
-        <?php
-        if (isset($_SESSION['error_message'])) {
-            echo '<div class="alert alert-error">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
-            unset($_SESSION['error_message']);
-        }
-        if (isset($_SESSION['success_message'])) {
-            echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
-            unset($_SESSION['success_message']);
-        }
-        ?>
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="alert alert-error">
+                <?= htmlspecialchars($_SESSION['error_message']) ?>
+            </div>
+            <?php unset($_SESSION['error_message']); ?>
+        <?php endif; ?>
 
-        <form action="auth.php" method="POST" id="loginForm">
-            <input type="hidden" name="action" value="login">
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="alert alert-success">
+                <?= htmlspecialchars($_SESSION['success_message']) ?>
+            </div>
+            <?php unset($_SESSION['success_message']); ?>
+        <?php endif; ?>
 
+        <form action="<?= url('authenticate') ?>" method="POST" id="loginForm">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
@@ -266,17 +265,13 @@ session_start();
             <button type="submit" class="btn-login">Entrar</button>
         </form>
 
-        <div class="login-links">
-            <a href="forgot-password.php">Esqueci minha senha</a>
-        </div>
-
         <div class="divider">
             <span>ou</span>
         </div>
 
         <div class="register-link">
             <p>Ainda não tem uma conta?</p>
-            <a href="register.php">Cadastre-se aqui</a>
+            <a href="<?= url('register') ?>">Cadastre-se aqui</a>
         </div>
     </div>
 

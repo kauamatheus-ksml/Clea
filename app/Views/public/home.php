@@ -415,7 +415,7 @@
                 <li><a href="<?= url('contact') ?>">Contato</a></li>
             </ul>
             <div>
-                <a href="<?= url('login.php') ?>" class="btn btn-outline">Entrar</a>
+                <a href="<?= url('login') ?>" class="btn btn-outline">Entrar</a>
                 <a href="<?= url('register') ?>" class="btn btn-primary">Criar Conta</a>
             </div>
         </nav>
@@ -554,8 +554,8 @@
             <div>
                 <h4>Para Você</h4>
                 <a href="<?= url('register') ?>">Criar Conta</a>
-                <a href="<?= url('login.php') ?>">Entrar</a>
-                <a href="/register?type=vendor">Seja um Fornecedor</a>
+                <a href="<?= url('login') ?>">Entrar</a>
+                <a href="<?= url('register') ?>">Seja um Fornecedor</a>
             </div>
             <div>
                 <h4>Contato</h4>

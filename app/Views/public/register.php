@@ -274,7 +274,7 @@
         </form>
 
         <div class="login-link">
-            Já tem uma conta? <a href="<?= url('login.php') ?>">Fazer login</a>
+            Já tem uma conta? <a href="<?= url('login') ?>">Fazer login</a>
         </div>
     </div>
 
